@@ -1,14 +1,16 @@
 ---
 title: Analysis of 2018 tornado data from NOAA
-author: Peter Carbonett
-output: html_document
+author: Peter Carbonetto
+output:
+  html_document:
+    theme: readable 
 ---
 
 *Add brief summary of analysis here.*
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
-                      fig.align = "center")
+                      fig.align = "center",fig.height = 5,fig.width = 9)
 ```
 
 # Load packages
@@ -41,10 +43,25 @@ tornadoes <- subset(storms,EVENT_TYPE == "Tornado")
 nrow(tornadoes)
 ```
 
-# Plot geographic locations of tornadoes
+*Add text here.*
+
+```{r summarize-f-scale}
+tornadoes <- transform(tornadoes,TOR_F_SCALE = factor(TOR_F_SCALE))
+summary(tornadoes$TOR_F_SCALE)
+```
+
+# Plot geographic distribution of tornadoes
+
+*Add text here.*
 
 ```{r plot-tornadoes}
+rows      <- order(tornadoes$TOR_F_SCALE)
+tornadoes <- tornadoes[rows,]
 ggplot(tornadoes,aes(x = BEGIN_LON,y = BEGIN_LAT,color = TOR_F_SCALE)) +
-  geom_path(data = map_data("state"),aes(x = long,y = lat,group = group,
-    color = "black")) + geom_point(shape  = 20,size = 2)
+  geom_path(data = map_data("state"),aes(x = long,y = lat,group = group),
+            color = "black") +
+  geom_point(shape = 20,size = 4) +
+  scale_color_manual(values = c("skyblue","dodgerblue","darkorange",
+                                "magenta","gray")) +
+  labs(x = "longitude",y = "latitude")
 ```
