@@ -1,0 +1,50 @@
+---
+title: Analysis of 2018 tornado data from NOAA
+author: Peter Carbonett
+output: html_document
+---
+
+*Add brief summary of analysis here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center")
+```
+
+# Load packages
+
+Load the packages used in the analysis below.
+
+```{r load-pkgs, message=FALSE, warning=FALSE}
+library(readr)
+library(ggplot2)
+library(cowplot)
+```
+
+# Load tornado data
+
+Load the 2018 storm event data from the CSV file. The data should be
+stored in a data frame with 62,339 rows and 51 columns.
+
+```{r load-data, message=FALSE, warning=FALSE}
+storms <- read_csv("StormEvents_details-ftp_v1.0_d2018_c20190817.csv.gz")
+class(storms) <- "data.frame"
+nrow(storms)
+ncol(storms)
+```
+
+Here we focus on events classified as tornadoes. We should find 1,250
+tornado events.
+
+```{r get-tornado-data}
+tornadoes <- subset(storms,EVENT_TYPE == "Tornado")
+nrow(tornadoes)
+```
+
+# Plot geographic locations of tornadoes
+
+```{r plot-tornadoes}
+ggplot(tornadoes,aes(x = BEGIN_LON,y = BEGIN_LAT,color = TOR_F_SCALE)) +
+  geom_path(data = map_data("state"),aes(x = long,y = lat,group = group,
+    color = "black")) + geom_point(shape  = 20,size = 2)
+```
