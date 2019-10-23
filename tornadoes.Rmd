@@ -7,7 +7,8 @@ output:
     theme: readable 
 ---
 
-This is 
+This is my analysis of tornado data downloaded from the
+[NOAA website][noaa-storm-events].
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -78,4 +79,5 @@ quite large cluster of severe tornadoes in and around upper
 Louisiana. Indeed, there was a ["tornado outbreak" that occurred in
 Louisiana in April 2018][tornado-outbreak].
 
+[noaa-storm-events]: https://www.ncdc.noaa.gov/stormevents/ftp.jsp
 [tornado-outbreak]: https://en.wikipedia.org/wiki/Tornado_outbreak_of_April_13%E2%80%9315,_2018
