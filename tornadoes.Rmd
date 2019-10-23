@@ -43,7 +43,9 @@ tornadoes <- subset(storms,EVENT_TYPE == "Tornado")
 nrow(tornadoes)
 ```
 
-*Add text here.*
+The tornadoes are categorized by a severity scale, with "EF3" being
+the most severe. Only a small number (12) of the tornadoes 2018 are
+classified as EF3.
 
 ```{r summarize-f-scale}
 tornadoes <- transform(tornadoes,TOR_F_SCALE = factor(TOR_F_SCALE))
@@ -52,7 +54,9 @@ summary(tornadoes$TOR_F_SCALE)
 
 # Plot geographic distribution of tornadoes
 
-*Add text here.*
+Using the geographic data provided, we can easily create a map showing
+the location of all tornado events that occurred in 2018. A color
+scheme is used to highlight the most severe tornadoes.
 
 ```{r plot-tornadoes}
 rows      <- order(tornadoes$TOR_F_SCALE)
@@ -65,3 +69,10 @@ ggplot(tornadoes,aes(x = BEGIN_LON,y = BEGIN_LAT,color = TOR_F_SCALE)) +
                                 "magenta","gray")) +
   labs(x = "longitude",y = "latitude")
 ```
+
+As expected, the greatest concentration of severe tornadoes occurred
+in Midwestern states such as Kansas and Mississippi. There is also a 
+quite large cluster of severe tornadoes in and around upper Louisiana, which coincides with a documented ["tornado outbreak" in Louisiana in April
+2018][tornado-outbreak].
+
+[tornado-outbreak]: https://en.wikipedia.org/wiki/Tornado_outbreak_of_April_13%E2%80%9315,_2018
